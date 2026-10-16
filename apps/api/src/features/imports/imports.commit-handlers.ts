@@ -19,7 +19,11 @@ export async function persistCommittedTransactions(
   for (const code of uniqueAccountCodes) {
     const account = await accountsRepository.findByCode(tenantId, code, session);
     if (!account) {
-      throw new ValidationError(`Referenced account "${code}" does not exist`);
+      if (code === 'OPERATING') {
+        await accountsRepository.ensureAccount(tenantId, 'OPERATING', session);
+      } else {
+        throw new ValidationError(`Referenced account "${code}" does not exist`);
+      }
     }
   }
 

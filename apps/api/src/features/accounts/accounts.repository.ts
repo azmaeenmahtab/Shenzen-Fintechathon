@@ -90,5 +90,28 @@ export const accountsRepository = {
     );
     return toDto(docs[0] as unknown as AccountDoc);
   },
+
+  async ensureAccount(
+    tenantId: string,
+    code: string,
+    session?: ClientSession,
+  ): Promise<AccountDto> {
+    const existing = await this.findByCode(tenantId, code, session);
+    if (existing) {
+      return existing;
+    }
+    const name = code === 'OPERATING' ? 'Main Operating Account' : `Account ${code}`;
+    return this.create(
+      tenantId,
+      {
+        code,
+        name,
+        currency: 'CNY',
+        openingBalanceMinor: 0,
+        openingBalanceDate: '2026-01-01',
+      },
+      session,
+    );
+  },
 };
 
