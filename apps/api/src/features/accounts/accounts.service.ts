@@ -30,5 +30,13 @@ export const accountsService = {
   ): Promise<AccountDto> {
     return accountsRepository.create(tenantId, data, session);
   },
+
+  async ensureAccount(
+    tenantId: string,
+    code: string,
+    session?: ClientSession,
+  ): Promise<AccountDto> {
+    return accountsRepository.ensureAccount(tenantId, code, session);
+  },
 };
 
