@@ -104,7 +104,7 @@ export function AgentWorkspace() {
 
       {/* Middle: Conversation Panel (5 cols on lg) */}
       <div className="lg:col-span-5 flex flex-col gap-4 h-[720px]">
-        <div className="flex-1 overflow-y-auto rounded-xl border bg-card/40 p-4 shadow-xs">
+        <div className="apple-card flex-1 overflow-y-auto rounded-xl border border-border/70 bg-card/60 p-4 shadow-xs">
           {!activeRunId && !activePrompt && (
             <div className="flex flex-col gap-6 py-6">
               <div className="space-y-1">

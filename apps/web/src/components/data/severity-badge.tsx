@@ -37,11 +37,19 @@ export function SeverityBadge({
   children,
   ...props
 }: SeverityBadgeProps) {
+  const dotColor = {
+    critical: 'bg-red-600 dark:bg-red-400',
+    high: 'bg-orange-500 dark:bg-orange-400',
+    medium: 'bg-amber-500 dark:bg-amber-400',
+    info: 'bg-sky-500 dark:bg-sky-400',
+  }[severity ?? 'info'];
+
   return (
     <span
-      className={cn(severityBadgeVariants({ severity }), className)}
+      className={cn(severityBadgeVariants({ severity }), 'gap-1.5 font-medium tracking-normal capitalize', className)}
       {...props}
     >
+      <span className={cn('h-1.5 w-1.5 rounded-full shrink-0', dotColor)} aria-hidden="true" />
       {children ?? severity}
     </span>
   );

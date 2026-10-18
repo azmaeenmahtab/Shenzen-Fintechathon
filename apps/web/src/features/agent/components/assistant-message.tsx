@@ -109,9 +109,9 @@ export function AssistantMessage({
   const isFailed = status === 'failed';
 
   return (
-    <div className={cn('flex flex-col gap-3 rounded-xl border bg-card/80 p-4 shadow-2xs', className)}>
+    <div className={cn('apple-card flex flex-col gap-3 rounded-xl border border-border/70 bg-card p-4', className)}>
       {/* Header bar */}
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b pb-2.5">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border/60 pb-2.5">
         <div className="flex items-center gap-2">
           <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-primary">
             <Bot className="h-3.5 w-3.5" />
