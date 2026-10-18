@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
+    --background: 216 28% 97%;
     --foreground: 222 47% 11%;
 
     --card: 0 0% 100%;
@@ -16,32 +16,32 @@
     --primary: 221 83% 53%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222 47% 11.2%;
+    --secondary: 214 32% 93%;
+    --secondary-foreground: 222 47% 11%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 214 30% 92%;
+    --muted-foreground: 215 22% 38%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222 47% 11.2%;
+    --accent: 214 30% 92%;
+    --accent-foreground: 222 47% 11%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
+    --border: 214.3 24% 88%;
+    --input: 214.3 24% 88%;
     --ring: 221 83% 53%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    /* Sidebar */
-    --sidebar-background: 210 25% 97%;
+    /* Sidebar - Apple Frosted Sidebar Material */
+    --sidebar-background: 216 24% 96%;
     --sidebar-foreground: 222 47% 15%;
     --sidebar-primary: 221 83% 53%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 30% 92%;
+    --sidebar-accent: 214 28% 90%;
     --sidebar-accent-foreground: 222 47% 11%;
-    --sidebar-border: 214.3 31.8% 90%;
+    --sidebar-border: 214.3 22% 88%;
     --sidebar-ring: 221 83% 53%;
 
     /* Severity tokens */
@@ -56,42 +56,42 @@
   }
 
   .dark {
-    --background: 224 71% 4%;
-    --foreground: 213 31% 91%;
+    --background: 222 47% 5%;
+    --foreground: 214 32% 93%;
 
-    --card: 224 71% 6%;
-    --card-foreground: 213 31% 91%;
+    --card: 222 42% 8%;
+    --card-foreground: 214 32% 93%;
 
-    --popover: 224 71% 6%;
-    --popover-foreground: 213 31% 91%;
+    --popover: 222 42% 8%;
+    --popover-foreground: 214 32% 93%;
 
     --primary: 217 91% 60%;
     --primary-foreground: 224 71% 4%;
 
-    --secondary: 222.2 47.4% 11.2%;
+    --secondary: 222 35% 13%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 223 47% 11%;
-    --muted-foreground: 215.4 16.3% 56.9%;
+    --muted: 222 35% 12%;
+    --muted-foreground: 215 20% 68%;
 
-    --accent: 216 34% 17%;
+    --accent: 217 32% 16%;
     --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 62.8% 50.6%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 216 34% 17%;
-    --input: 216 34% 17%;
+    --border: 217 32% 16%;
+    --input: 217 32% 16%;
     --ring: 217 91% 60%;
 
-    /* Sidebar */
-    --sidebar-background: 224 71% 5%;
-    --sidebar-foreground: 213 31% 91%;
+    /* Sidebar - Apple Dark Vibrancy Material */
+    --sidebar-background: 222 50% 6%;
+    --sidebar-foreground: 214 32% 93%;
     --sidebar-primary: 217 91% 60%;
     --sidebar-primary-foreground: 224 71% 4%;
-    --sidebar-accent: 216 34% 14%;
-    --sidebar-accent-foreground: 213 31% 91%;
-    --sidebar-border: 216 34% 15%;
+    --sidebar-accent: 217 32% 14%;
+    --sidebar-accent-foreground: 214 32% 93%;
+    --sidebar-border: 217 32% 13%;
     --sidebar-ring: 217 91% 60%;
 
     /* Severity tokens */
@@ -113,9 +113,25 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: 'rlig' 1, 'calt' 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
 .tabular-nums {
   font-variant-numeric: tabular-nums;
+}
+
+/* Apple Liquid Glass and tactile layer utilities */
+.liquid-glass {
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+.apple-card {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+}
+
+.dark .apple-card {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.35), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
 }

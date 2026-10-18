@@ -40,15 +40,17 @@ export function BreachSummary({ forecast, onSelectDate }: BreachSummaryProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" data-testid="breach-summary-breached">
       {/* 1. First Below Floor */}
-      <Card className="border-amber-500/40 bg-amber-500/5 shadow-2xs">
+      <Card className="apple-card border-amber-500/30 bg-amber-500/[0.04]">
         <CardHeader className="flex flex-row items-center justify-between pb-1.5 space-y-0">
           <CardTitle className="text-xs font-medium text-amber-700 dark:text-amber-400 uppercase tracking-wider">
             First Floor Breach
           </CardTitle>
-          <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+          <div className="p-1.5 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400">
+            <AlertTriangle className="h-4 w-4" />
+          </div>
         </CardHeader>
         <CardContent className="space-y-1">
-          <div className="text-xl font-bold font-mono tracking-tight text-foreground">
+          <div className="text-xl sm:text-2xl font-semibold font-mono tracking-tight text-foreground">
             {summary.firstBelowFloorDate ? (
               <button
                 type="button"
@@ -69,20 +71,22 @@ export function BreachSummary({ forecast, onSelectDate }: BreachSummaryProps) {
       </Card>
 
       {/* 2. First Negative Day */}
-      <Card className="border-destructive/40 bg-destructive/5 shadow-2xs">
+      <Card className="apple-card border-destructive/30 bg-destructive/[0.04]">
         <CardHeader className="flex flex-row items-center justify-between pb-1.5 space-y-0">
           <CardTitle className="text-xs font-medium text-destructive uppercase tracking-wider">
             First Insolvent Day
           </CardTitle>
-          <AlertCircle className="h-4 w-4 text-destructive" />
+          <div className="p-1.5 rounded-lg bg-destructive/10 text-destructive">
+            <AlertCircle className="h-4 w-4" />
+          </div>
         </CardHeader>
         <CardContent className="space-y-1">
-          <div className="text-xl font-bold font-mono tracking-tight text-foreground">
+          <div className="text-xl sm:text-2xl font-semibold font-mono tracking-tight text-foreground">
             {summary.firstNegativeDate ? (
               <button
                 type="button"
                 onClick={() => onSelectDate?.(summary.firstNegativeDate!)}
-                className="hover:underline focus:outline-hidden text-left text-destructive font-bold"
+                className="hover:underline focus:outline-hidden text-left text-destructive font-semibold"
                 title="Click to drill down"
               >
                 {summary.firstNegativeDate}
@@ -96,15 +100,17 @@ export function BreachSummary({ forecast, onSelectDate }: BreachSummaryProps) {
       </Card>
 
       {/* 3. Lowest Cash Balance */}
-      <Card className="border-border/80 shadow-2xs">
+      <Card className="apple-card border-border/70 bg-card/90">
         <CardHeader className="flex flex-row items-center justify-between pb-1.5 space-y-0">
           <CardTitle className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
             Trough (Lowest Cash)
           </CardTitle>
-          <TrendingDown className="h-4 w-4 text-destructive" />
+          <div className="p-1.5 rounded-lg bg-destructive/10 text-destructive">
+            <TrendingDown className="h-4 w-4" />
+          </div>
         </CardHeader>
         <CardContent className="space-y-1">
-          <div className="text-xl font-bold tracking-tight">
+          <div className="text-xl sm:text-2xl font-semibold tracking-tight">
             <Money minor={summary.minCashMinor} />
           </div>
           <p className="text-xs text-muted-foreground">
@@ -121,15 +127,17 @@ export function BreachSummary({ forecast, onSelectDate }: BreachSummaryProps) {
       </Card>
 
       {/* 4. Liquidity Gap to Restore Floor */}
-      <Card className="border-border/80 shadow-2xs">
+      <Card className="apple-card border-border/70 bg-card/90">
         <CardHeader className="flex flex-row items-center justify-between pb-1.5 space-y-0">
           <CardTitle className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
             Liquidity Gap
           </CardTitle>
-          <ShieldAlert className="h-4 w-4 text-primary" />
+          <div className="p-1.5 rounded-lg bg-primary/10 text-primary">
+            <ShieldAlert className="h-4 w-4" />
+          </div>
         </CardHeader>
         <CardContent className="space-y-1">
-          <div className="text-xl font-bold tracking-tight text-amber-600 dark:text-amber-400">
+          <div className="text-xl sm:text-2xl font-semibold tracking-tight text-amber-600 dark:text-amber-400">
             <Money minor={summary.liquidityGapMinor} />
           </div>
           <p className="text-xs text-muted-foreground">Funding needed to maintain policy floor</p>
