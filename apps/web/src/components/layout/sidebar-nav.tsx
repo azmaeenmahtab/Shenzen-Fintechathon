@@ -25,6 +25,7 @@ export interface NavItem {
   label: string;
   description: string;
   icon: LucideIcon;
+  section: 'Cockpit' | 'Remedies' | 'Operations';
   permission?: Permission;
 }
 
@@ -34,20 +35,15 @@ export const NAV_ITEMS: NavItem[] = [
     label: 'Dashboard',
     description: 'Your financial overview',
     icon: LayoutDashboard,
+    section: 'Cockpit',
     permission: 'finance:read',
-  },
-  {
-    href: '/imports',
-    label: 'Imports',
-    description: 'Upload bank & invoice data',
-    icon: FileSpreadsheet,
-    permission: 'imports:write',
   },
   {
     href: '/forecast',
     label: 'Forecast',
     description: 'Future cash projections',
     icon: TrendingUp,
+    section: 'Cockpit',
     permission: 'finance:read',
   },
   {
@@ -55,6 +51,7 @@ export const NAV_ITEMS: NavItem[] = [
     label: 'Alerts',
     description: 'Issues needing attention',
     icon: AlertTriangle,
+    section: 'Cockpit',
     permission: 'finance:read',
   },
   {
@@ -62,6 +59,7 @@ export const NAV_ITEMS: NavItem[] = [
     label: 'Financing',
     description: 'Borrowing options',
     icon: Landmark,
+    section: 'Remedies',
     permission: 'finance:read',
   },
   {
@@ -69,6 +67,7 @@ export const NAV_ITEMS: NavItem[] = [
     label: 'Scenarios',
     description: 'What-if analysis',
     icon: GitBranch,
+    section: 'Remedies',
     permission: 'scenarios:write',
   },
   {
@@ -76,6 +75,7 @@ export const NAV_ITEMS: NavItem[] = [
     label: 'Actions',
     description: 'Approve decisions',
     icon: ShieldCheck,
+    section: 'Remedies',
     permission: 'actions:propose',
   },
   {
@@ -83,13 +83,23 @@ export const NAV_ITEMS: NavItem[] = [
     label: 'Agent',
     description: 'AI finance assistant',
     icon: Bot,
+    section: 'Operations',
     permission: 'agent:use',
+  },
+  {
+    href: '/imports',
+    label: 'Imports',
+    description: 'Upload bank & invoice data',
+    icon: FileSpreadsheet,
+    section: 'Operations',
+    permission: 'imports:write',
   },
   {
     href: '/proof',
     label: 'Proof & Audit',
     description: 'Verified records',
     icon: FileCheck2,
+    section: 'Operations',
     permission: 'audit:export',
   },
   {
@@ -97,6 +107,7 @@ export const NAV_ITEMS: NavItem[] = [
     label: 'Settings',
     description: 'Preferences & team',
     icon: Settings,
+    section: 'Operations',
     permission: 'settings:manage',
   },
 ];
@@ -123,38 +134,55 @@ export function SidebarNav({
     });
   }, [items, role]);
 
+  const sections: { id: 'Cockpit' | 'Remedies' | 'Operations'; label: string }[] = [
+    { id: 'Cockpit', label: 'Cash Cockpit' },
+    { id: 'Remedies', label: 'Decision Loop' },
+    { id: 'Operations', label: 'Governance & Data' },
+  ];
+
   return (
-    <nav className={cn('flex flex-col gap-1', className)} {...props}>
-      {filteredItems.map((item) => {
-        const Icon = item.icon;
-        const isActive =
-          pathname === item.href || pathname?.startsWith(`${item.href}/`);
+    <nav className={cn('flex flex-col gap-3', className)} {...props}>
+      {sections.map((section) => {
+        const sectionItems = filteredItems.filter((i) => i.section === section.id);
+        if (sectionItems.length === 0) return null;
 
         return (
-          <Link
-            key={item.href}
-            href={item.href}
-            onClick={onItemClick}
-            className={cn(
-              'group flex items-start gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors',
-              isActive
-                ? 'bg-sidebar-accent text-sidebar-accent-foreground font-semibold'
-                : 'text-sidebar-foreground/80 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground',
-            )}
-          >
-            <Icon
-              className={cn(
-                'h-4 w-4 shrink-0 mt-0.5 transition-colors',
-                isActive
-                  ? 'text-primary'
-                  : 'text-muted-foreground group-hover:text-foreground',
-              )}
-            />
-            <div className="min-w-0">
-              <span className="truncate block">{item.label}</span>
-              <span className="truncate block text-[10px] font-normal text-muted-foreground/70">{item.description}</span>
+          <div key={section.id} className="space-y-1">
+            <div className="px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/80 select-none">
+              {section.label}
             </div>
-          </Link>
+            <div className="space-y-0.5">
+              {sectionItems.map((item) => {
+                const Icon = item.icon;
+                const isActive =
+                  pathname === item.href || pathname?.startsWith(`${item.href}/`);
+
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={onItemClick}
+                    className={cn(
+                      'group flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium transition-all duration-150',
+                      isActive
+                        ? 'bg-sidebar-accent text-sidebar-accent-foreground font-semibold shadow-2xs'
+                        : 'text-sidebar-foreground/85 hover:bg-sidebar-accent/60 hover:text-sidebar-foreground',
+                    )}
+                  >
+                    <Icon
+                      className={cn(
+                        'h-4 w-4 shrink-0 transition-colors',
+                        isActive
+                          ? 'text-primary'
+                          : 'text-muted-foreground group-hover:text-foreground',
+                      )}
+                    />
+                    <span className="truncate">{item.label}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
         );
       })}
     </nav>

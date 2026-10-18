@@ -155,7 +155,7 @@ export function ForecastChart({ forecast, onSelectDate, selectedDate }: Forecast
         <div>
           <CardTitle className="text-base font-semibold">91-Day Cash Forecast Trajectory</CardTitle>
           <CardDescription className="text-xs">
-            Deterministic cash progression vs policy floor with assumption sensitivity
+            Deterministic cash progression vs policy floor • Conservative series models +14d overdue receivables
           </CardDescription>
         </div>
         <ViewToggle value={granularity} onChange={setGranularity} />
@@ -241,7 +241,7 @@ export function ForecastChart({ forecast, onSelectDate, selectedDate }: Forecast
                   <Line
                     type="monotone"
                     dataKey="conservativeMajor"
-                    name="Conservative assumption: overdue receivables arrive 14 days later (not a statistical confidence band)"
+                    name="Conservative (+14d AR)"
                     stroke="#94a3b8"
                     strokeWidth={1.5}
                     strokeDasharray="4 4"

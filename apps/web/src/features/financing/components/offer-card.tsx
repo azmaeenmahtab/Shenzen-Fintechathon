@@ -36,38 +36,38 @@ export function OfferCard({
   const isTopRanked = rankIndex === 0;
 
   return (
-    <Card className={`relative overflow-hidden transition-all duration-200 border ${isTopRanked ? 'border-primary/50 shadow-md ring-1 ring-primary/20' : 'border-border/80 hover:border-border shadow-xs'}`}>
+    <Card className={`apple-card relative overflow-hidden transition-all duration-200 border ${isTopRanked ? 'border-primary/50 shadow-sm ring-1 ring-primary/20 bg-card' : 'border-border/70 hover:border-border/90 bg-card/90'}`}>
       {/* Top Ranked Ribbon */}
       {isTopRanked && (
-        <div className="absolute top-0 right-0 bg-primary text-primary-foreground text-[10px] font-bold px-3 py-0.5 rounded-bl-md uppercase tracking-wider flex items-center gap-1">
-          <Sparkles className="h-3 w-3" />
-          Best Recommended Match
+        <div className="absolute top-0 right-0 bg-primary text-primary-foreground text-[10px] font-semibold px-3 py-1 rounded-bl-lg uppercase tracking-wider flex items-center gap-1.5 shadow-xs">
+          <Sparkles className="h-3.5 w-3.5" />
+          <span>Best Recommended Match</span>
         </div>
       )}
 
       <CardHeader className="p-5 pb-3">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <div className="flex items-center gap-2 flex-wrap">
               <h3 className="text-lg font-bold tracking-tight text-foreground">
                 {offer.name}
               </h3>
-              <Badge variant="outline" className="text-[11px] font-medium border-muted-foreground/30 text-muted-foreground">
+              <Badge variant="outline" className="text-[11px] font-medium border-border text-muted-foreground">
                 Synthetic offer
               </Badge>
               <Badge variant="secondary" className="text-[11px] font-mono capitalize">
                 {offer.type.replace('_', ' ')}
               </Badge>
             </div>
-            <p className="text-xs text-muted-foreground mt-1">
+            <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
               {offer.description}
             </p>
           </div>
 
           <div className="flex items-center gap-2 sm:text-right shrink-0">
-            <div>
-              <span className="text-[11px] text-muted-foreground block">Fit Score</span>
-              <span className="text-xl font-mono font-extrabold text-primary">
+            <div className="rounded-xl border border-primary/20 bg-primary/[0.04] px-3 py-1.5 text-center">
+              <span className="text-[10px] text-muted-foreground uppercase font-semibold tracking-wider block">Fit Score</span>
+              <span className="text-xl font-mono font-bold text-primary">
                 {(score * 100).toFixed(0)}%
               </span>
             </div>

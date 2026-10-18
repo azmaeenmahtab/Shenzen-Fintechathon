@@ -49,7 +49,7 @@ export function CheckCard({ check }: CheckCardProps): React.JSX.Element {
   };
 
   return (
-    <Card className="border-border/60 shadow-sm transition-all hover:border-border">
+    <Card className="apple-card border border-border/70 bg-card/90 transition-all hover:border-border">
       <CardHeader className="pb-3">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex items-start gap-3">

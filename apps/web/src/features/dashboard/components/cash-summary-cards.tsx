@@ -24,20 +24,20 @@ export function CashSummaryCards({ forecast }: CashSummaryCardsProps) {
       className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
     >
       {/* 1. Current Cash Card */}
-      <Card className="relative overflow-hidden border-border/80 shadow-xs">
+      <Card className="apple-card border border-border/70 bg-card/90">
         <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
           <CardTitle className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
             Current Cash
           </CardTitle>
           <div className="flex items-center gap-1.5">
             <SourceChip formulaKey="cash" />
-            <div className="p-1.5 rounded-md bg-primary/10 text-primary">
+            <div className="p-1.5 rounded-lg bg-primary/10 text-primary">
               <Wallet className="h-4 w-4" />
             </div>
           </div>
         </CardHeader>
         <CardContent className="space-y-1">
-          <div className="text-2xl font-bold tracking-tight">
+          <div className="text-2xl sm:text-3xl font-semibold tracking-tight text-foreground">
             <Money minor={openingCashMinor} />
           </div>
           <p className="text-xs text-muted-foreground">
@@ -47,19 +47,19 @@ export function CashSummaryCards({ forecast }: CashSummaryCardsProps) {
       </Card>
 
       {/* 2. Liquidity Floor Card */}
-      <Card className="relative overflow-hidden border-border/80 shadow-xs">
+      <Card className="apple-card border border-border/70 bg-card/90">
         <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
           <CardTitle className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
             <JargonTooltip term="liquidity-floor">
               {translate('liquidity_floor', 'Liquidity Floor')}
             </JargonTooltip>
           </CardTitle>
-          <div className="p-1.5 rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400">
+          <div className="p-1.5 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400">
             <Shield className="h-4 w-4" />
           </div>
         </CardHeader>
         <CardContent className="space-y-1">
-          <div className="text-2xl font-bold tracking-tight">
+          <div className="text-2xl sm:text-3xl font-semibold tracking-tight text-foreground">
             <Money minor={floorMinor} />
           </div>
           <p className="text-xs text-muted-foreground">Company minimum policy threshold</p>
@@ -68,8 +68,10 @@ export function CashSummaryCards({ forecast }: CashSummaryCardsProps) {
 
       {/* 3. Lowest Projected Cash Card */}
       <Card
-        className={`relative overflow-hidden shadow-xs transition-colors ${
-          isBreached ? 'border-red-500/30 dark:border-red-900/50' : 'border-border/80'
+        className={`apple-card transition-colors ${
+          isBreached
+            ? 'border-red-500/30 bg-red-500/[0.03] dark:border-red-500/30 dark:bg-red-500/[0.05]'
+            : 'border-border/70 bg-card/90'
         }`}
       >
         <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
@@ -77,7 +79,7 @@ export function CashSummaryCards({ forecast }: CashSummaryCardsProps) {
             Lowest Projected Cash
           </CardTitle>
           <div
-            className={`p-1.5 rounded-md ${
+            className={`p-1.5 rounded-lg ${
               isBreached
                 ? 'bg-red-500/10 text-red-600 dark:text-red-400'
                 : 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
@@ -87,7 +89,7 @@ export function CashSummaryCards({ forecast }: CashSummaryCardsProps) {
           </div>
         </CardHeader>
         <CardContent className="space-y-1">
-          <div className="text-2xl font-bold tracking-tight">
+          <div className="text-2xl sm:text-3xl font-semibold tracking-tight">
             <Money minor={summary.minCashMinor} />
           </div>
           {isBreached ? (
@@ -106,8 +108,10 @@ export function CashSummaryCards({ forecast }: CashSummaryCardsProps) {
 
       {/* 4. Gap to Floor Card */}
       <Card
-        className={`relative overflow-hidden shadow-xs transition-colors ${
-          isBreached ? 'border-red-500/30 dark:border-red-900/50' : 'border-border/80'
+        className={`apple-card transition-colors ${
+          isBreached
+            ? 'border-red-500/30 bg-red-500/[0.03] dark:border-red-500/30 dark:bg-red-500/[0.05]'
+            : 'border-border/70 bg-card/90'
         }`}
       >
         <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
@@ -119,7 +123,7 @@ export function CashSummaryCards({ forecast }: CashSummaryCardsProps) {
           <div className="flex items-center gap-1.5">
             <SourceChip formulaKey="floorGap" />
             <div
-              className={`p-1.5 rounded-md ${
+              className={`p-1.5 rounded-lg ${
                 isBreached
                   ? 'bg-red-500/10 text-red-600 dark:text-red-400'
                   : 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
@@ -136,14 +140,14 @@ export function CashSummaryCards({ forecast }: CashSummaryCardsProps) {
         <CardContent className="space-y-1">
           {isBreached ? (
             <>
-              <div className="text-2xl font-bold tracking-tight text-red-600 dark:text-red-400">
+              <div className="text-2xl sm:text-3xl font-semibold tracking-tight text-red-600 dark:text-red-400">
                 <Money minor={summary.liquidityGapMinor} />
               </div>
               <p className="text-xs text-muted-foreground">Required funding to restore floor</p>
             </>
           ) : (
             <>
-              <div className="text-lg font-bold tracking-tight text-emerald-600 dark:text-emerald-400 pt-1">
+              <div className="text-lg font-semibold tracking-tight text-emerald-600 dark:text-emerald-400 pt-1">
                 No breach within 91 days
               </div>
               <p className="text-xs text-muted-foreground">Cash stays above liquidity floor</p>
