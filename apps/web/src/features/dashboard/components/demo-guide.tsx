@@ -16,22 +16,6 @@ import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import { authClient } from '@/features/auth';
 
-const DEMO_ACCOUNTS = [
-  {
-    role: 'Owner',
-    email: 'owner@harbor.local',
-    badge: 'Full Authority',
-    badgeVariant: 'default' as const,
-    desc: 'Approves financing, executes sandbox draws, exports cryptographic evidence.',
-  },
-  {
-    role: 'Employee',
-    email: 'employee@harbor.local',
-    badge: 'Operator',
-    badgeVariant: 'secondary' as const,
-    desc: 'Uploads bank/invoice CSVs, explores what-if scenarios, chats with AI copilot.',
-  },
-];
 
 const STORY_STEPS = [
   {
@@ -184,56 +168,6 @@ export function DemoGuide() {
                   <ChevronRight className="h-3 w-3 ml-0.5" />
                 </div>
               </Link>
-            ))}
-          </div>
-        </div>
-
-        {/* 3 Demo Accounts */}
-        <div className="border-t border-border/60 pt-3">
-          <div className="flex items-center justify-between mb-2">
-            <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider">
-              Demo Personas & Credentials
-            </h4>
-            <span className="text-[11px] text-muted-foreground">
-              Sign in via user menu with any password
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            {DEMO_ACCOUNTS.map((account) => (
-              <div
-                key={account.email}
-                className="flex flex-col justify-between rounded-lg border border-border/60 bg-background/60 p-2.5 text-xs"
-              >
-                <div className="space-y-1">
-                  <div className="flex items-center justify-between">
-                    <span className="font-semibold text-foreground">{account.role}</span>
-                    <Badge variant={account.badgeVariant} className="text-[10px] h-4 px-1.5 font-normal">
-                      {account.badge}
-                    </Badge>
-                  </div>
-                  <p className="text-[11px] text-muted-foreground leading-tight">
-                    {account.desc}
-                  </p>
-                </div>
-
-                <div className="mt-2 flex items-center justify-between border-t border-border/40 pt-1.5 font-mono text-[11px]">
-                  <span className="text-foreground select-all truncate pr-1">{account.email}</span>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-6 w-6 shrink-0"
-                    onClick={() => handleCopy(account.email)}
-                    aria-label={`Copy ${account.email}`}
-                  >
-                    {copiedEmail === account.email ? (
-                      <Check className="h-3 w-3 text-emerald-600 dark:text-emerald-400" />
-                    ) : (
-                      <Copy className="h-3 w-3 text-muted-foreground" />
-                    )}
-                  </Button>
-                </div>
-              </div>
             ))}
           </div>
         </div>
