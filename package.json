@@ -7,8 +7,8 @@
   },
   "packageManager": "pnpm@10.5.2",
   "scripts": {
-    "dev": "pnpm --filter @harbor/web --filter @harbor/api --parallel dev",
-    "build": "pnpm -r --if-present build",
+    "dev": "node init && pnpm --filter @harbor/web --filter @harbor/api --parallel dev",
+    "build": "node init && pnpm -r --if-present build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "pnpm -r --if-present typecheck",

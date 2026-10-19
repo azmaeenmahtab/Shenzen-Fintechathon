@@ -1,7 +1,7 @@
 # HarborCFO — Autonomous Deterministic SME Finance Copilot
 
 [![Shenzhen FinTechathon 2026](https://img.shields.io/badge/Shenzhen_FinTechathon-2026_Topic_E-blue.svg)](https://github.com/azmaeenmahtab/Shenzen-Fintechathon)
-[![Live Link](https://img.shields.io/badge/Live_Deployment-harbor--cfo.vercel.app-purple.svg)](https://harbor-cfo.vercel.app/)
+[![Live Link](https://img.shields.io/badge/Live_Deployment-harborcfo.vercel.app-purple.svg)](https://harborcfo.vercel.app/)
 [![TypeScript](https://img.shields.io/badge/Language-TypeScript_Strict-3178c6.svg)](https://www.typescriptlang.org/)
 
 **HarborCFO** is an autonomous, deterministic, and fiduciary-grade SME finance copilot developed for the **2026 Shenzhen International FinTech Competition (International Track, Topic E)**. It combines 91-day deterministic cash flow forecasting, multi-factor financing remedy matching, role-based access control (RBAC), and an AI copilot with real-time tool execution telemetry.
@@ -12,7 +12,7 @@
 
 | Resource | Link / Path | Description |
 | :--- | :--- | :--- |
-| **Live Application** | [https://harbor-cfo.vercel.app/](https://harbor-cfo.vercel.app/) | Production deployment with SSL and live API |
+| **Live Application** | [https://harborcfo.vercel.app/](https://harborcfo.vercel.app/) | Production deployment with SSL and live API |
 | **GitHub Repository** | [azmaeenmahtab/Shenzen-Fintechathon](https://github.com/azmaeenmahtab/Shenzen-Fintechathon) | Complete monorepo source code |
 
 
@@ -73,7 +73,7 @@ flowchart LR
 ```
 
 ### Test Case 1: Sign In & Clean Slate Verification
-1. Open [https://harbor-cfo.vercel.app/sign-in](https://harbor-cfo.vercel.app/sign-in).
+1. Open [https://harborcfo.vercel.app/sign-in](https://harborcfo.vercel.app/sign-in).
 2. Sign in as **Harbor Owner** (`harbor@test.com` / `harbor_test`).
 3. View **Dashboard**, **Forecast**, **Alerts**, **Financing**, and **Scenarios**:
    - **Verification**: Clean "Awaiting Financial Data" onboarding UI appears across all pages. No fake numbers or flat zero-charts.
