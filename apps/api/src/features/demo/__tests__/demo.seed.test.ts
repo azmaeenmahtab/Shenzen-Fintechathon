@@ -15,8 +15,11 @@ describe('B17 Demo Seeding & Anchor Verification', () => {
 
   const harborOrgId = new mongoose.Types.ObjectId();
   const pearlOrgId = new mongoose.Types.ObjectId();
+  const dragonOrgId = new mongoose.Types.ObjectId();
+  const jadeOrgId = new mongoose.Types.ObjectId();
   const harborOwnerId = 'usr_harbor_owner_test';
   const pearlOwnerId = 'usr_pearl_owner_test';
+  const rohanOwnerId = 'usr_rohan_owner_test';
 
   beforeEach(async () => {
     const db = mongoose.connection;
@@ -34,6 +37,18 @@ describe('B17 Demo Seeding & Anchor Verification', () => {
       { upsert: true },
     );
 
+    await db.collection('organization').updateOne(
+      { slug: DEMO_TENANTS.DRAGON_ELECTRONICS },
+      { $set: { _id: dragonOrgId, slug: DEMO_TENANTS.DRAGON_ELECTRONICS, name: 'Dragon Electronics' } },
+      { upsert: true },
+    );
+
+    await db.collection('organization').updateOne(
+      { slug: DEMO_TENANTS.JADE_TEXTILES },
+      { $set: { _id: jadeOrgId, slug: DEMO_TENANTS.JADE_TEXTILES, name: 'Jade Textiles' } },
+      { upsert: true },
+    );
+
     await db.collection('member').updateOne(
       { organizationId: harborOrgId, role: 'owner' },
       { $set: { organizationId: harborOrgId, userId: harborOwnerId, role: 'owner' } },
@@ -43,6 +58,19 @@ describe('B17 Demo Seeding & Anchor Verification', () => {
     await db.collection('member').updateOne(
       { organizationId: pearlOrgId, role: 'owner' },
       { $set: { organizationId: pearlOrgId, userId: pearlOwnerId, role: 'owner' } },
+      { upsert: true },
+    );
+
+    // Rohan owns BOTH Dragon Electronics and Jade Textiles
+    await db.collection('member').updateOne(
+      { organizationId: dragonOrgId, role: 'owner' },
+      { $set: { organizationId: dragonOrgId, userId: rohanOwnerId, role: 'owner' } },
+      { upsert: true },
+    );
+
+    await db.collection('member').updateOne(
+      { organizationId: jadeOrgId, role: 'owner' },
+      { $set: { organizationId: jadeOrgId, userId: rohanOwnerId, role: 'owner' } },
       { upsert: true },
     );
   });
@@ -117,5 +145,35 @@ describe('B17 Demo Seeding & Anchor Verification', () => {
     const pearlInvoices = await InvoiceModel.find({ tenantId: pearl.tenantId });
     expect(pearlInvoices.length).toBeGreaterThan(0);
     expect(pearlInvoices.some((i) => i.externalId === 'PEARL-INV-001')).toBe(true);
+  });
+
+  it('4. seeds Dragon Electronics & Jade Textiles for same owner with complete data isolation', async () => {
+    const dragon = await demoService.seedTenant(DEMO_TENANTS.DRAGON_ELECTRONICS);
+    const jade = await demoService.seedTenant(DEMO_TENANTS.JADE_TEXTILES);
+
+    expect(dragon.status).toBe('reset_completed');
+    expect(jade.status).toBe('reset_completed');
+    expect(dragon.tenantId).not.toBe(jade.tenantId);
+
+    // Verify Dragon Electronics domain data
+    const dragonInvoices = await InvoiceModel.find({ tenantId: dragon.tenantId });
+    const jadeInvoices = await InvoiceModel.find({ tenantId: jade.tenantId });
+
+    expect(dragonInvoices.length).toBeGreaterThan(0);
+    expect(jadeInvoices.length).toBeGreaterThan(0);
+
+    // Assert zero cross-contamination of external IDs
+    const dragonExtIds = new Set(dragonInvoices.map((i) => i.externalId));
+    const jadeExtIds = new Set(jadeInvoices.map((i) => i.externalId));
+    for (const id of dragonExtIds) {
+      expect(jadeExtIds.has(id)).toBe(false);
+    }
+
+    // Verify opening balances are strictly tenant-specific
+    const dragonBaseline = await forecastService.getBaseline(dragon.tenantId);
+    const jadeBaseline = await forecastService.getBaseline(jade.tenantId);
+
+    expect(dragonBaseline.run.openingCashMinor).toBe(15_000_000); // 150,000 CNY
+    expect(jadeBaseline.run.openingCashMinor).toBe(5_000_000);   // 50,000 CNY
   });
 });
